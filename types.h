@@ -16,9 +16,10 @@ class Object;
 
 typedef std::string String;
 typedef std::vector<String> StringList;
-typedef std::shared_ptr<Object> SharedObject;
-typedef std::weak_ptr<Object> WeakObject;
-typedef std::set<SharedObject> Children;
+//typedef std::shared_ptr<Object> SharedObject;
+//typedef std::weak_ptr<Object> WeakObject;
+//typedef std::set<SharedObject> Children;
+typedef std::set<Object*> Children;
 
 class SingleApplicationException: public std::exception
 {

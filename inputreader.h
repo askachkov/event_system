@@ -8,7 +8,7 @@ class InputReader:
         public Object
 {
 public:
-    explicit InputReader(WeakObject parent = WeakObject());
+    explicit InputReader(Object * parent = 0);
 
 protected:
     ~InputReader();

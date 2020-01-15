@@ -7,14 +7,14 @@
 class Engine: public Object
 {
 public:
-    explicit Engine(WeakObject parent = WeakObject());
+    explicit Engine(Object * parent = 0);
 
 protected:
     ~Engine();
 
 private:
-//    SharedInputReader   m_Reader;
-//    SharedDisplay       m_Display;
+    InputReader * m_Reader;
+    Display *     m_Display;
 };
 
 #endif // ENGINE_H

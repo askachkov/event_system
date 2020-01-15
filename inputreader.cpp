@@ -4,7 +4,7 @@
 
 using namespace std;
 
-InputReader::InputReader(WeakObject parent):
+InputReader::InputReader(Object *parent):
     Object(parent),
     m_Future(async(launch::async,&InputReader::woker,this))
 {
@@ -13,7 +13,7 @@ InputReader::InputReader(WeakObject parent):
 
 InputReader::~InputReader()
 {
-
+    cout << "~InputReader" << endl;
 }
 
 bool InputReader::woker()

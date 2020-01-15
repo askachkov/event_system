@@ -1,10 +1,14 @@
 #include "object.h"
-//#include <iostream>
+#include "app.h"
 
-Object::Object(WeakObject parent):
+Object::Object(Object *parent):
     m_Parent(parent)
 {
-
+    if ( m_Parent ){
+        m_Parent->addChild(this);
+    } else {
+        App::instance()->addChild(this);
+    }
 }
 
 bool Object::event(const IEvent &e)
@@ -15,18 +19,19 @@ bool Object::event(const IEvent &e)
     return false;
 }
 
+Object::Object(App *)
+{
+}
+
 Object::~Object()
 {
-//    std::cout << "Destroyed";
+    for ( auto i = m_Children.begin(); i != m_Children.end(); ++i ){
+        delete *i;
+    }
 }
 
-void Object::addChild(SharedObject o)
+void Object::addChild(Object *o)
 {
     m_Children.insert(o);
-}
-
-void Object::free(Object *o)
-{
-    delete o;
 }
 

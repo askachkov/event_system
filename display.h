@@ -7,7 +7,7 @@ class Display:
         public Object
 {
 public:
-    explicit Display(WeakObject parent = WeakObject());
+    explicit Display(Object * parent = 0);
     virtual bool event(const IEvent & e);
 
 protected:

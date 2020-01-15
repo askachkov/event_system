@@ -5,6 +5,7 @@
 App * App::g_Instance = 0;
 
 App::App(int argc, char **argv):
+    Object(this),
     m_Args(argv, argv+argc),
     m_AtEnd(false)
 {
@@ -26,12 +27,7 @@ int App::exec()
     while ( !m_AtEnd ) {
         m_Condition.wait(lock);
         for ( auto e = m_Events.begin(); e != m_Events.end(); ++e ){
-            if ( event(**e) ){
-                continue;
-            }
-            for ( auto i = m_Roots.begin(); i != m_Roots.end(); ++i ){
-                (*i)->event(**e);
-            }
+            event(**e);
         }
         m_Events.clear();
     }
@@ -41,11 +37,6 @@ int App::exec()
 StringList App::args() const
 {
     return m_Args;
-}
-
-void App::addChild(SharedObject o)
-{
-    m_Roots.insert(o);
 }
 
 void App::sendEvent(Event event)
@@ -66,5 +57,5 @@ bool App::event(const IEvent &e)
         m_AtEnd = true;
         return true;
     }
-    return false;
+    return Object::event(e);
 }
