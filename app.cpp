@@ -2,6 +2,8 @@
 #include <iostream>
 #include <object.h>
 
+using namespace std;
+
 App * App::g_Instance = 0;
 
 App::App(int argc, char **argv):
@@ -27,9 +29,12 @@ int App::exec()
     while ( !m_AtEnd ) {
         m_Condition.wait(lock);
         for ( auto e = m_Events.begin(); e != m_Events.end(); ++e ){
-            event(**e);
+            if (!event(**e)){
+                cerr << "Ignored event: " << (*e)->type() << endl;
+            }
         }
         m_Events.clear();
+
     }
     return res;
 }

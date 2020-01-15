@@ -4,14 +4,14 @@
 #include "inputreader.h"
 #include "display.h"
 
-class Engine: public Object
+class Engine: public Display
 {
 public:
     explicit Engine(Object * parent = 0);
 
 protected:
     ~Engine();
-    bool event(const IEvent &e);
+    bool inputEvent(const InputEvent &e);
 
 private:
     InputReader * m_Reader;

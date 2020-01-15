@@ -12,8 +12,8 @@ public:
 
 protected:
     ~Display();
+    virtual bool inputEvent(const InputEvent & e);
 };
 
-typedef std::shared_ptr<Display> SharedDisplay;
 
 #endif // DISPLAY_H

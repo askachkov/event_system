@@ -6,7 +6,7 @@ using namespace std;
 
 InputReader::InputReader(Object *parent):
     Object(parent),
-    m_Future(async(launch::async,&InputReader::woker,this))
+    m_Future(async(launch::async,&InputReader::asyncWoker,this))
 {
 
 }
@@ -16,7 +16,7 @@ InputReader::~InputReader()
     cout << "~InputReader" << endl;
 }
 
-bool InputReader::woker()
+bool InputReader::asyncWoker()
 {
     String buf;
     while ( cin >> buf ){

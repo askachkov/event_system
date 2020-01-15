@@ -14,12 +14,10 @@ protected:
     ~InputReader();
 
 private:
-    bool woker();
+    bool asyncWoker();
 
 private:
     std::future<bool> m_Future;
 };
-
-typedef std::shared_ptr<InputReader> SharedInputReader;
 
 #endif // INPUTREADER_H

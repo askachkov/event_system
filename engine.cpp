@@ -4,7 +4,7 @@
 using namespace std;
 
 Engine::Engine(Object *parent):
-    Object(parent),
+    Display(parent),
     m_Reader(new InputReader(this)),
     m_Display(new Display(this))
 {
@@ -16,11 +16,10 @@ Engine::~Engine()
     cout << "~Engine" << endl;
 }
 
-bool Engine::event(const IEvent &e)
+bool Engine::inputEvent(const InputEvent &e)
 {
-    if ( e.type() == INPUT_EVENT && e.as<InputEvent>().getData() == "except" ){
+    if ( e.getData() == "except" ){
         throw std::exception("except-str");
     }
-    return Object::event(e);
+    return false;
 }
-

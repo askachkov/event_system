@@ -13,10 +13,13 @@ Object::Object(Object *parent):
 
 bool Object::event(const IEvent &e)
 {
+    bool res = false;
     for ( auto i = m_Children.begin(); i != m_Children.end(); ++i ){
-        (*i)->event(e);
+        if ((*i)->event(e)){
+            res = true;
+        }
     }
-    return false;
+    return res;
 }
 
 Object::Object(App *)

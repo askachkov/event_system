@@ -11,9 +11,8 @@ Display::Display(Object *parent):
 
 bool Display::event(const IEvent &e)
 {
-    if ( e.type() == INPUT_EVENT ){
-        String str = reinterpret_cast<const InputEvent&>(e).getData();
-        cout << "MSG:" << str << endl;
+    if ( (e.type() == INPUT_EVENT) && inputEvent(e.as<InputEvent>()) ){
+        return true;
     }
     return Object::event(e);
 }
@@ -21,4 +20,11 @@ bool Display::event(const IEvent &e)
 Display::~Display()
 {
     cout << "~Display" << endl;
+}
+
+bool Display::inputEvent(const InputEvent &e)
+{
+    String str = e.getData();
+    cout << "MSG:" << str << endl;
+    return true;
 }
