@@ -11,6 +11,7 @@ public:
 
 protected:
     ~Engine();
+    bool event(const IEvent &e);
 
 private:
     InputReader * m_Reader;

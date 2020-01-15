@@ -32,6 +32,14 @@ class IEvent
 public:
     virtual ~IEvent(){}
     virtual int type()const = 0;
+    template<typename T> T& as()
+    {
+        return reinterpret_cast<T&>(*this);
+    }
+    template<typename T> const T& as()const
+    {
+        return reinterpret_cast<const T&>(*this);
+    }
 };
 
 enum EventType {
