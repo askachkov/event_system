@@ -15,7 +15,10 @@ public:
 
 public:
     static App* instance();
-    bool event(const IEvent & e);
+    bool exitEvent(const ExitEvent &);
+
+private:
+    EventList getEvents();
 
 private:
     StringList      m_Args;

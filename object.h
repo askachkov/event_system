@@ -12,11 +12,14 @@ private:
 
 public:
     Object(Object * parent);
-    virtual bool event(const IEvent & e);
+    void sendEvent(Event event);
+    virtual ~Object();
 
 protected:
     Object(App*a);
-    virtual ~Object();
+    virtual bool event(const IEvent & e);
+    virtual bool inputEvent(const InputEvent &e);
+    virtual bool exitEvent(const ExitEvent &e);
 
 private:
     Object *  m_Parent;

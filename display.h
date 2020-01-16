@@ -8,11 +8,12 @@ class Display:
 {
 public:
     explicit Display(Object * parent = 0);
-    virtual bool event(const IEvent & e);
+    ~Display();
 
 protected:
-    ~Display();
     virtual bool inputEvent(const InputEvent & e);
+
+    std::vector<Display *>     m_Displays;
 };
 
 

@@ -25,16 +25,13 @@ App::App(int argc, char **argv):
 int App::exec()
 {
     int res = 0;
-    std::unique_lock<Mutex> lock(m_Mutex);
     while ( !m_AtEnd ) {
-        m_Condition.wait(lock);
-        for ( auto e = m_Events.begin(); e != m_Events.end(); ++e ){
+        EventList events = getEvents();
+        for ( auto e = events.begin(); e != events.end(); ++e ){
             if (!event(**e)){
                 cerr << "Ignored event: " << (*e)->type() << endl;
             }
         }
-        m_Events.clear();
-
     }
     return res;
 }
@@ -56,11 +53,20 @@ App *App::instance()
     return g_Instance;
 }
 
-bool App::event(const IEvent &e)
+bool App::exitEvent(const ExitEvent &)
 {
-    if( e.type() == CLOSE_APP_EVENT ){
-        m_AtEnd = true;
-        return true;
+    m_AtEnd = true;
+    return false;
+}
+
+EventList App::getEvents()
+{
+    EventList res;
+    std::unique_lock<Mutex> lock(m_Mutex);
+    if ( m_Events.empty() ){
+        m_Condition.wait(lock);
     }
-    return Object::event(e);
+    res = m_Events;
+    m_Events.clear();
+    return res;
 }

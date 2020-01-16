@@ -21,9 +21,9 @@ bool InputReader::asyncWoker()
     String buf;
     while ( cin >> buf ){
         if ( buf == "exit" ){
-            App::instance()->sendEvent(Event(new ExitEvent));
+            sendEvent(Event(new ExitEvent));
         } else {
-            App::instance()->sendEvent(Event(new InputEvent(buf)));
+            sendEvent(Event(new InputEvent(buf)));
         }
     }
     return true;

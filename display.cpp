@@ -9,14 +9,6 @@ Display::Display(Object *parent):
 
 }
 
-bool Display::event(const IEvent &e)
-{
-    if ( (e.type() == INPUT_EVENT) && inputEvent(e.as<InputEvent>()) ){
-        return true;
-    }
-    return Object::event(e);
-}
-
 Display::~Display()
 {
     cout << "~Display" << endl;
@@ -24,7 +16,18 @@ Display::~Display()
 
 bool Display::inputEvent(const InputEvent &e)
 {
+    if ( e.getData() == "push" ){
+        m_Displays.push_back(new Display(this));
+        return true;
+    }
+    if ( e.getData() == "pop" && m_Displays.size() ){
+        delete *m_Displays.rbegin();
+        m_Displays.pop_back();
+        return true;
+    }
+
     String str = e.getData();
+
     cout << "MSG:" << str << endl;
-    return true;
+    return false;
 }
